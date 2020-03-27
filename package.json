@@ -17,10 +17,17 @@
     "eject": "react-scripts eject"
   },
   "husky": {
-    "hooks": {}
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true"
+    }
   },
   "lint-staged": {
-    "*.js": []
+    "*.js": [
+      "eslint --fix",
+      "git add ."
+    ]
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -38,7 +45,10 @@
     ]
   },
   "devDependencies": {
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
     "babel-eslint": "^10.1.0",
+    "commitizen": "^4.0.3",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.1.0",
     "eslint-config-prettier": "^6.10.1",
@@ -50,5 +60,10 @@
     "husky": "^4.2.3",
     "lint-staged": "^10.0.9",
     "prettier": "^2.0.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
